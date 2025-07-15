@@ -3,11 +3,11 @@ const malla = [
     semestre: "1",
     ramos: [
       { id: "historia", nombre: "Historia de la Psicología", creditos: 8 },
-      { id: "neuro", nombre: "Neurobiología Aplicada", creditos: 10 },
+      { id: "neuro", nombre: "Neurobiología Aplicada a la Psicología", creditos: 10 },
       { id: "desarrollo", nombre: "Psicología del Desarrollo Humano", creditos: 8 },
-      { id: "metodologia", nombre: "Metodología en Psicología", creditos: 8 },
+      { id: "metodologia", nombre: "Metodología de la Investigación en Psicología", creditos: 8 },
       { id: "filosofia", nombre: "Filosofía y Psicología", creditos: 4 },
-      { id: "introduccion", nombre: "Introducción a la Psicología", creditos: 2 },
+      { id: "introduccion", nombre: "Introducción a la Psicología y su Praxis", creditos: 2 },
       { id: "comunicacion1", nombre: "Comunicación Oral y Escrita I", creditos: 2 },
       { id: "idioma1", nombre: "Idioma Extranjero I", creditos: 3 }
     ]
@@ -18,7 +18,7 @@ const malla = [
       { id: "comunicacion2", nombre: "Comunicación Oral y Escrita II", creditos: 4, prerequisitos: ["comunicacion1"] },
       { id: "cognitivos1", nombre: "Procesos Cognitivos I", creditos: 4, prerequisitos: ["filosofia"] },
       { id: "idioma2", nombre: "Idioma Extranjero II", creditos: 3, prerequisitos: ["idioma1"] },
-      { id: "estadistica1", nombre: "Técnicas de Análisis Estadístico I", creditos: 4 }
+      { id: "estadistica1", nombre: "Técnicas de Análisis Estadístico en Psicología I", creditos: 4 }
     ]
   }
 ];
@@ -75,6 +75,8 @@ function actualizarBloqueados() {
     const id = el.dataset.id;
     const ramo = encontrarRamoPorId(id);
 
+    if (!ramo) return;
+
     if (ramo.prerequisitos) {
       const habilitado = ramo.prerequisitos.every((pre) => aprobados.has(pre));
       if (habilitado) {
@@ -84,7 +86,7 @@ function actualizarBloqueados() {
         el.classList.add("bloqueado");
         el.classList.remove("aprobado");
         el.dataset.bloqueado = "true";
-        aprobados.delete(ramo.id); // evita aprobar un ramo bloqueado
+        aprobados.delete(ramo.id);
       }
     }
   });
